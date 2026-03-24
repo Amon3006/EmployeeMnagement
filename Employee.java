@@ -1,4 +1,4 @@
-package com.Employees;
+// package com.Employees;
 
 public abstract class Employee{
 	String name;
@@ -7,6 +7,7 @@ public abstract class Employee{
 	boolean gender;
 	float basicSalary;
 	
+
 	Employee(String name, String address, int age, String gender, float basicSalary){
 		setName(name);
 		setAddress(address);
@@ -18,6 +19,7 @@ public abstract class Employee{
 	public boolean setName(String name) {
 
 		if(name == null|| name ==""||name.length()<2){
+			name = "";
 				return false;
 		}
 		else {
@@ -49,9 +51,11 @@ public abstract class Employee{
 	}
 
 	public void setGender(String gender) {
-		if(gender == "M"||gender == "Male"||gender == "male")
+
+		//handel rest of the possible strings other than male and female
+		if(gender.equals("M") ||gender.equals("Male") ||gender.equals("male") )
 		this.gender = true;
-		else if(gender == "F"||gender == "female"||gender == "Female")
+		else if(gender.equals("F") ||gender.equals("Female") ||gender.equals("female"))
 			this.gender = false;
 	}
 
@@ -69,6 +73,7 @@ public abstract class Employee{
 		str.append("\r\n ");
 		str.append("Address :");
 		str.append(address);
+		str.append("\r\n ");
 		str.append("gender : ");
 		if(gender)
 			str.append("Male");

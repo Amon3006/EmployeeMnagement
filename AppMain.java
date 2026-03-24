@@ -1,8 +1,27 @@
-package com.Employees;
+// package com.Employees;
 
-import com.calender.ConsoleInput;
+// import com.calender.ConsoleInput;
 
 public class AppMain {
+	static final int ADD_EMPLOYEE =1,
+					 DISPLAY =2,
+					 SORT =3,
+					 SORT_EMPLOYEES =3,
+					 ADD_MANAGER=1,
+					 ADD_ENGINEER =2,
+					 ADD_SALSEPERSON=3,
+					 DISPLAY_LAST =3,
+					 DISPLAY_FIRST =2,
+					 DISPLAY_ALL =1,
+					 BACK =4;
+
+	// static{
+	// 	ADD_MANAGER = ADD_EMPLOYEE =1;
+	// 	ADD_ENGINEER = DISPLAY =2;
+	// 	SORT_EMPLOYEES =ADD_SALSEPERSON =3;
+	// 	BACK = 4;
+
+	// }
 	
 	public static void main(String ... args) {
 	Employee [] empArr = new Employee[100];
@@ -13,23 +32,22 @@ public class AppMain {
 	do{
 		System.out.println("1. Add an Employee\r\n"
 				+ "2. Display\r\n"
-				+ "3. Sort On Salary\r\n"
-				+ "4.Sort on Name\r\n"
-				+ "5.Exit");
+				+ "3. Sort Employees\r\n"
+				+ "4.Exit\r\n");
 		choice = ConsoleInput.getInt();
 		
 		switch(choice) {
-			case 1:
+			case ADD_EMPLOYEE:
 				empArr[EmpCount++]=makeEmployee();
 				break;
-			case 2:
-				displayAll(empArr,EmpCount);
+			case DISPLAY:
+				display(empArr, EmpCount);
 				break;
-			case 3:
-				sortAllEmployeesOnSalary(empArr,EmpCount);
+			case SORT:
+				sortCase(empArr, EmpCount);
 				break;
-			case 4:
-				sortEmployeesOnName(empArr,EmpCount);
+			case BACK:
+				System.err.println("Yoii-chini-chiwo");
 				break;
 			
 		}
@@ -55,7 +73,7 @@ static Employee makeEmployee() {
 	System.out.print("1. Manager\n"
 			+ "2. Engineer\n"
 			+ "3. Sales Person\n"
-			+ "4.Exit");
+			+ "4. BACK\r\n");
 	
 	subChoice = ConsoleInput.getInt();
 	System.out.println("enter name");
@@ -64,7 +82,7 @@ static Employee makeEmployee() {
 	address = ConsoleInput.getString();
 	System.out.println("enter age");
 	age = ConsoleInput.getInt();
-	System.out.println("enter gender");
+	System.out.println("enter gender (F/M) ");
 	gender = ConsoleInput.getString();
 	System.out.println("enter Salary");
 	basicSalary = ConsoleInput.getFloat();
@@ -91,44 +109,99 @@ return e;
  
 
 
+static void sortCase(Employee [] empArr,int EmpCount){
+		int subChoice =0;
+	do{
+		System.out.print("1. sort employees on salary\n"
+			+ "2. Sort employees on name\n"
+			+ "3. Sort employess on name desc\n"
+			+ "4. BACK\r\n");
 
-static void diaplayFirst(Employee [] empArr,int EmpCount) {
+		subChoice = ConsoleInput.getInt();
+	switch(subChoice) {
+		case 1:
+			sortAllEmployeesOnSalary(empArr, EmpCount);
+			break;
+		case 2:
+			sortEmployeesOnName(empArr, EmpCount);
+			break;
+		case BACK:
+			sortEmployeesOnNameDESC(empArr, EmpCount);
+			break;
+		}}while(subChoice != 4);
+
+}
+static void display(Employee [] empArr,int EmpCount){
+	int subChoice =0;
+	do{
+		System.out.print("1. Display All emp\n"
+			+ "2. Display first emp\n"
+			+ "3. Display last emp\n"
+			+ "4. BACK\r\n");
+
+		subChoice = ConsoleInput.getInt();
+	switch(subChoice) {
+		case DISPLAY_ALL:
+			displayAll(empArr,EmpCount);
+			break;
+		case DISPLAY_FIRST:
+			displayFirst(empArr,EmpCount);
+			break;
+		case DISPLAY_LAST:
+			displayLast(empArr,EmpCount);
+			break;
+		}}while(subChoice != 4);
+
+}
+
+static void displayFirst(Employee [] empArr,int EmpCount) {
 	if(EmpCount ==0){
 		System.out.println("No employees");
 		return;}
-	if(empArr[0] instanceof Manager) {
-		Manager m =(Manager)empArr[0];
-		System.out.print(m.getInfo());
-	}
-	else if(empArr[0] instanceof Engineer) {
-		Engineer e =(Engineer)empArr[0];
-		System.out.print(e.getInfo());
-	}
-	else if(empArr[0] instanceof SalesPerson) {
-		SalesPerson s =(SalesPerson)empArr[0];
-		System.out.print(s.getInfo());
-	}
+				if(empArr[0] instanceof Manager) {
+				System.out.println("\n Designation : manager \n");
+			}
+			else if(empArr[0] instanceof Engineer) {
+				System.out.println("\n Designation :Engineer \n");
+			}
+			else if(empArr[0] instanceof SalesPerson) {
+				System.out.println("\n Designation :SalesPerson \n");
+			}
+			System.out.println(empArr[0].getInfo());
+
 }
 
 static void displayAll(Employee [] empArr,int EmpCount) {
 		for(int i = 0 ;i<EmpCount;i++) {
 			if(empArr[i] instanceof Manager) {
-				System.out.println("manager");
-				Manager m =(Manager)empArr[i];
-				System.out.print(m.getInfo());
+				System.out.println("\n Designation : manager \n");
 			}
 			else if(empArr[i] instanceof Engineer) {
-				System.out.println("Engineer");
-				Engineer e =(Engineer)empArr[i];
-				System.out.print(e.getInfo());
+				System.out.println("\n Designation :Engineer \n");
 			}
 			else if(empArr[i] instanceof SalesPerson) {
-				System.out.println("SalesPerson");
-				SalesPerson s =(SalesPerson)empArr[i];
-				System.out.print(s.getInfo());
+				System.out.println("\n Designation :SalesPerson \n");
 			}
+			System.out.println(empArr[i].getInfo());
 		}
 	
+}
+
+static void displayLast(Employee [] empArr,int EmpCount) {
+	if(EmpCount ==0){
+		System.out.println("No employees");
+		return;}
+				if(empArr[EmpCount-1] instanceof Manager) {
+				System.out.println("\n Designation : manager \n");
+			}
+			else if(empArr[EmpCount-1] instanceof Engineer) {
+				System.out.println("\n Designation :Engineer \n");
+			}
+			else if(empArr[EmpCount-1] instanceof SalesPerson) {
+				System.out.println("\n Designation :SalesPerson \n");
+			}
+			System.out.println(empArr[EmpCount-1].getInfo());
+
 }
 
 static void sortAllEmployeesOnSalary(Employee [] empArr,int EmpCount){
@@ -145,6 +218,21 @@ static void sortAllEmployeesOnSalary(Employee [] empArr,int EmpCount){
 	
 }
 
+static void sortAllEmployeesOnSalaryDESC(Employee [] empArr,int EmpCount){
+	for(int i = 0; i< EmpCount;i++) {
+		for(int j = i+1 ; j < EmpCount ; j++) {
+			if(empArr[i].getTotalSalary()>empArr[j].getTotalSalary()) {
+				Employee temp;
+				temp = empArr[i];
+				empArr[i] = empArr[j];
+				empArr[j] = temp;
+			}
+		}
+	}
+	
+}
+
+
 static void sortEmployeesOnName(Employee [] empArr,int EmpCount){
 	for(int i = 0; i< EmpCount;i++) {
 		for(int j = i+1 ; j < EmpCount ; j++) {
@@ -160,9 +248,23 @@ static void sortEmployeesOnName(Employee [] empArr,int EmpCount){
 	}
 	
 
+static void sortEmployeesOnNameDESC(Employee [] empArr,int EmpCount){
+	for(int i = 0; i< EmpCount;i++) {
+		for(int j = i+1 ; j < EmpCount ; j++) {
+		
+			if(empArr[i].getName().compareToIgnoreCase(empArr[j].getName())< 0){
+				Employee temp;
+				temp = empArr[i];
+				empArr[i] = empArr[j];
+				empArr[j] = temp;
+			}
+		}
+		}
+	}
 
 
 
+//to be implemented futher
 static void sortAllManagers(Employee [] empArr,int EmpCount){
 	for(int i = 0; i< EmpCount;i++) {
 		for(int j = i+1 ; j < EmpCount ; j++) {
